@@ -34,7 +34,7 @@ class ZmqClient(object):
     """Client part of the ProxmoxBMC system.
 
     The command-line client tool communicates with the server part
-    of the VirtualBMC system by exchanging JSON-encoded messages.
+    of the ProxmoxBMC system by exchanging JSON-encoded messages.
 
     Client builds requests out of its command-line options which
     include the command (e.g. `start`, `list` etc) and command-specific
