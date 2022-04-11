@@ -37,7 +37,7 @@ CONF = pbmc_config.get_config()
 
 class ProxmoxBMCManager(object):
 
-    VBMC_OPTIONS = ['username', 'password', 'address', 'port',
+    PBMC_OPTIONS = ['username', 'password', 'address', 'port',
                     'vmid', 'proxmox_address', 'token_user', 'token_name',
                     'token_value', 'active']
 
@@ -56,7 +56,7 @@ class ProxmoxBMCManager(object):
             config.read(config_path)
 
             bmc = {}
-            for item in self.VBMC_OPTIONS:
+            for item in self.PBMC_OPTIONS:
                 try:
                     value = config.get(DEFAULT_SECTION, item)
                 except configparser.NoOptionError:
@@ -113,7 +113,7 @@ class ProxmoxBMCManager(object):
         but alive ones.
         """
 
-        def vbmc_runner(bmc_config):
+        def pbmc_runner(bmc_config):
             # The manager process installs a signal handler for SIGTERM to
             # propagate it to children. Return to the default handler.
             signal.signal(signal.SIGTERM, signal.SIG_DFL)
@@ -126,7 +126,7 @@ class ProxmoxBMCManager(object):
                 show_options = utils.mask_dict_password(bmc_config)
 
             try:
-                vbmc = ProxmoxBMC(**bmc_config)
+                pbmc = ProxmoxBMC(**bmc_config)
 
             except Exception as ex:
                 LOG.exception(
@@ -137,7 +137,7 @@ class ProxmoxBMCManager(object):
                 return
 
             try:
-                vbmc.listen(timeout=CONF['ipmi']['session_timeout'])
+                pbmc.listen(timeout=CONF['ipmi']['session_timeout'])
 
             except Exception as ex:
                 LOG.exception(
@@ -174,7 +174,7 @@ class ProxmoxBMCManager(object):
 
                     instance = multiprocessing.Process(
                         name='pbmcd-managing-vmid-%s' % vmid,
-                        target=vbmc_runner,
+                        target=pbmc_runner,
                         args=(bmc_config,)
                     )
 
