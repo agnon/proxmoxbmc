@@ -33,6 +33,6 @@ pbmc start 123
 ```
 ## Limitations
 There are some limitations, or assumptions rather, regarding the ipmi requests for setting boot device and they are:
-hd boot is assumed to be scsi0
-cdrom is assumed to be ide2 (default when you create a VM with a cdrom attached)
-network is assumed to be net0
+* hd boot is assumed to be scsi0
+* cdrom is assumed to be ide2 (default when you create a VM with a cdrom attached)
+* network is assumed to be net0
