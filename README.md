@@ -26,4 +26,8 @@ pbmcd # starts the server
 # token-value = the actual value of the token
 # Example of adding the VMID 123 on port 6625 with admin/password as login using a token for the root user named ipmi
 pbmc add --username admin --password password --port 6625 --proxmox-address proxmox.example.org --token-user root@pam --token-name ipmi --token-value {token} 123
+# If all went well you should now see it in the list of BMCs
+pbmc list
+# Now start it
+pbmc start 123
 ```
