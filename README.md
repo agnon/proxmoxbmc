@@ -1,7 +1,7 @@
 # ProxmoxBMC
 Based on VirtualBMC @ https://github.com/openstack/virtualbmc
 
-Adapted to make it use the proxmoxer package against the Proxmox VE API instead of libvirt.
+Adapted to make it use the proxmoxer (https://github.com/proxmoxer/proxmoxer) package against the Proxmox VE API instead of libvirt.
 
 ## Usage
 On a debian based distribution:
