@@ -31,6 +31,36 @@ pbmc list
 # Now start it
 pbmc start 123
 ```
+
+## Start as a service (for systemd)
+Put this content (and adjust accordingly) in */etc/systemd/system/pbmcd.service*:
+
+```
+[Unit]
+Description = pbmcd service
+After = syslog.target
+After = network.target
+
+[Service]
+ExecStart = {{ PATH_TO_YOUR_VIRTUALENV }}/bin/pbmcd --foreground
+# Example (the environment should be baked into the interpreter for the venv, no need to activate):
+# ExecStart = /root/proxmoxbmc/.env/bin/pbmcd --foreground
+Restart = on-failure
+RestartSec = 2
+TimeoutSec = 120
+Type = simple
+# Optional if running as a different use don't forget to create one first
+# User = pbmc
+# Group = pbmc
+
+[Install]
+WantedBy = multi-user.target
+```
+Enable the service with:
+
+`# systemctl enable pbmcd`
+
+
 ## Limitations
 There are some limitations, or assumptions rather, regarding the ipmi requests for setting boot device and they are:
 * hd boot is assumed to be scsi0
