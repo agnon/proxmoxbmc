@@ -63,9 +63,10 @@ class ProxmoxBMC(bmc.Bmc):
 
     def _locate_vmid(self):
         for pve_node in self._proxmox.nodes.get():
-            for vm in self._proxmox.nodes(pve_node['node']).qemu.get():
-                if str(vm['vmid']) == self.vmid:                    
-                    return pve_node
+            if str(pve_node['status']) == 'online':
+                for vm in self._proxmox.nodes(pve_node['node']).qemu.get():
+                    if str(vm['vmid']) == self.vmid:                    
+                        return pve_node
             
         return None
 
