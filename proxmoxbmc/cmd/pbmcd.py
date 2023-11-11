@@ -38,10 +38,19 @@ def main(argv=sys.argv[1:]):
                         action='store_true',
                         default=False,
                         help='Do not daemonize')
+    parser.add_argument('--pidfile', help='Path to the PID file', required=False)
+    parser.add_argument('--configdir', help='Path to the PID file', required=False)
 
     args = parser.parse_args(argv)
+    if args.pidfile:
+        pid_file = args.pidfile
+    else:
+        pid_file = CONF['default']['pid_file']
 
-    pid_file = CONF['default']['pid_file']
+    if args.configdir:
+        CONF['default']['config_dir'] = args.configdir
+    
+        
 
     try:
         with open(pid_file) as f:
@@ -58,6 +67,9 @@ def main(argv=sys.argv[1:]):
 
     def wrap_with_pidfile(func, pid):
         dir_name = os.path.dirname(pid_file)
+
+        if not os.path.exists(CONF['default']['config_dir']):
+            os.makedirs(CONF['default']['config_dir'], mode=0o700)
 
         if not os.path.exists(dir_name):
             os.makedirs(dir_name, mode=0o700)
