@@ -1,0 +1,17 @@
+proxmoxbmc (1.0.1-2) unstable; urgency=medium
+
+  * Add systemd unit file -- pbmcd now installs and enables as a proper
+    system service via dh_installsystemd. Service starts automatically
+    on boot after network-online.target and pve-cluster.service.
+
+ -- knightmare2600 <knightmare2600@gmail.com>  Sun, 22 Mar 2026 10:00:00 +0000
+
+proxmoxbmc (1.0.1-1) unstable; urgency=medium
+
+  * Initial Debian packaging.
+  * All dependencies satisfied by Debian/Proxmox apt packages --
+    no pip or venv required.
+  * Installs pbmc and pbmcd binaries to /usr/bin/.
+  * Suitable for submission to Debian via the OpenStack team.
+
+ -- knightmare2600 <knightmare2600@gmail.com>    Sun, 22 Mar 2026 09:00:00 +0000

@@ -1,0 +1,20 @@
+[Unit]
+Description=proxmoxbmc -- Virtual BMC for Proxmox VE VMs
+Documentation=https://github.com/agnon/proxmoxbmc
+After=network-online.target pve-cluster.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/pbmcd --foreground
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+
+# Ensure state directory exists for pbmc database
+RuntimeDirectory=proxmoxbmc
+StateDirectory=proxmoxbmc
+
+[Install]
+WantedBy=multi-user.target
